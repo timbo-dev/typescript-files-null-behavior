@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "files-as-null-property",
+  "name": "typescript-files-null-behavior",
   "version": "1.0.0",
   "description": "Por que typescript aceita null como valor de files?",
   "author": {
