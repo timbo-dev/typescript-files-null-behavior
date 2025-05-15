@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "files-as-null-property",
+  "version": "1.0.0",
+  "description": "Por que typescript aceita null como valor de files?",
+  "author": {
+    "name": "timbo-dev",
+    "email": "dev@timbo.me",
+    "url": "https://timbo.me"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.8.1",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

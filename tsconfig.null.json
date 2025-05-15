@@ -1,0 +1,8 @@
+{
+    "files": null,
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "outDir": "dist"
+    },
+}
