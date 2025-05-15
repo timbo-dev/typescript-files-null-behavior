@@ -32,6 +32,7 @@ Teste com:
 ```bash
 npx tsc -p tsconfig.valid.json
 npx tsc -p tsconfig.null.json
+```
 
 ## Referência
 
