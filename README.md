@@ -1,40 +1,75 @@
-# TypeScript tsconfig.json: Por que `files` aceita `null`?
+# TypeScript: Por que `files` (e outras propriedades) aceitam `null`?
 
 ## Introdução
 
-O `tsconfig.json` é o arquivo de configuração padrão do TypeScript. A propriedade `files` permite declarar explicitamente os arquivos a serem incluídos na compilação.
+No arquivo `tsconfig.json`, propriedades como `files`, `include`, `exclude` e `references` controlam quais arquivos o compilador TypeScript deve considerar.
 
-Porém, um detalhe interessante (e não documentado oficialmente) é que `files` também pode receber o valor `null`.
+Um comportamento curioso (e não oficialmente documentado) é que essas propriedades podem receber o valor `null` — e o TypeScript trata isso de forma silenciosa e tolerante.
 
-## Por que isso é permitido?
+## Por que `null` é aceito?
 
-- JSON não permite `undefined`, mas permite `null`.
-- O compilador do TypeScript normaliza `null` como se a propriedade não existisse.
-- Isso evita erros desnecessários e torna o sistema mais tolerante e robusto.
+- O padrão JSON **não permite `undefined`**, mas permite `null`.
+- O compilador **trata `null` como se a propriedade estivesse ausente**.
+- Isso evita erros em arquivos gerados automaticamente ou malformados.
+- Propriedades `null` são normalizadas internamente para `undefined`.
 
-## Comportamento
+## Comportamento prático
 
-| Valor de `files`       | Comportamento                                |
-|------------------------|----------------------------------------------|
-| Ausente                | Inclui todos os arquivos exceto os excluídos |
-| `null`                 | Mesmo comportamento que o ausente            |
-| Lista de arquivos      | Compila apenas os arquivos listados          |
+| Propriedade       | Valor `null` permitido | Equivale a ausência? |
+|-------------------|-------------------------|-----------------------|
+| `files`           | ✅                      | ✅                    |
+| `include`         | ✅                      | ✅                    |
+| `exclude`         | ✅                      | ✅                    |
+| `references`      | ✅                      | ✅                    |
+| `extends`         | ❌ (gera erro)          | ❌                    |
 
-## Exemplo
+## Exemplo com `files`
 
-Veja os arquivos no diretório `/src` e as configurações em:
+### `tsconfig.valid.json`
 
-- `tsconfig.valid.json`
-- `tsconfig.null.json`
+```json
+{
+  "compilerOptions": {
+    "strict": true
+  },
+  "files": ["src/index.ts"]
+}
+````
 
-Teste com:
+### `tsconfig.null.json`
+
+```json
+{
+  "compilerOptions": {
+    "strict": true
+  },
+  "files": null
+}
+```
+
+### Estrutura de arquivos
+
+```bash
+.
+├── src
+│   └── index.ts
+├── tsconfig.valid.json
+└── tsconfig.null.json
+```
+
+### Teste
 
 ```bash
 npx tsc -p tsconfig.valid.json
 npx tsc -p tsconfig.null.json
 ```
 
-## Referência
+Nos dois casos, o TypeScript compila corretamente.
 
-Esse comportamento está documentado no PR do TypeScript:  
-[https://github.com/microsoft/TypeScript/pull/18058](https://github.com/microsoft/TypeScript/pull/18058)
+## Conclusão
+
+Permitir `null` nas propriedades do `tsconfig.json` é uma decisão pragmática do compilador TypeScript para lidar com entradas malformadas sem falhar.
+
+Esse comportamento **não está documentado na documentação oficial**, mas está descrito no PR:
+
+🔗 [https://github.com/microsoft/TypeScript/pull/18058](https://github.com/microsoft/TypeScript/pull/18058)
