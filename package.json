@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "typescript-files-null-behavior",
+  "name": "typescript-nullable-config-properties",
   "version": "1.0.0",
-  "description": "Por que typescript aceita null como valor de files?",
+  "description": "Entenda por que o TypeScript aceita `null` como valor em propriedades como `files`, `include` e `exclude` no `tsconfig.json`, mesmo sem documentação oficial.",
   "author": {
     "name": "timbo-dev",
     "email": "dev@timbo.me",
