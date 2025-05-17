@@ -1,3 +1,9 @@
+# Warning ⚠️
+
+Conteúdo movido para o repositório [Lernado](https://github.com/timbo-dev/lernado)!
+
+----
+
 # TypeScript: Por que `files` (e outras propriedades) aceitam `null`?
 
 ## Introdução
